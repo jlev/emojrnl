@@ -1,6 +1,6 @@
 from settings import *
 
-TWILIO_NUMBER = '+18637775765'
+PLIVO_NUMBER = '+16572564969'
 
 import os
 

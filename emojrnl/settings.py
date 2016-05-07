@@ -36,7 +36,6 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'django_twilio',
     'rest_framework',
     'journal'
 ]
@@ -114,6 +113,6 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
-TWILIO_ACCOUNT_SID = os.environ.get('TWILIO_ACCOUNT_SID')
-TWILIO_AUTH_TOKEN = os.environ.get('TWILIO_AUTH_TOKEN')
-TWILIO_NUMBER = os.environ.get('TWILIO_NUMBER')
+PLIVO_AUTH_ID = os.environ.get('PLIVO_AUTH_ID')
+PLIVO_AUTH_TOKEN = os.environ.get('PLIVO_AUTH_TOKEN')
+PLIVO_NUMBER = os.environ.get('PLIVO_NUMBER')
