@@ -41,7 +41,5 @@ import raven
 INSTALLED_APPS += ('raven.contrib.django.raven_compat', )
 RAVEN_CONFIG = {
     'dsn': 'https://f5b5bab5948b4edeb70b0c7948a1c540:0f19ec120474456a9e3a324ed5203007@app.getsentry.com/77363',
-    # If you are using git, you can also automatically configure the
-    # release based on the git info.
-    'release': raven.fetch_git_sha(os.path.dirname(__file__)),
+    # 'release': raven.fetch_git_sha(os.path.dirname(__file__)),
 }
