@@ -1,0 +1,1 @@
+web: gunicorn emojrnl.wsgi --timeout 120 --keep-alive 5 --log-level info
