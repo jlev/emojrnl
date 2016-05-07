@@ -12,7 +12,7 @@ from sms.client import send_sms, parse_sms
 from sms.messages import WELCOME_MSG, CONFIRM_MSGS
 
 
-def user_signup(phone_number):
+def user_signup(request, phone_number):
     logger.info("user_signup: " + phone_number)
     journal = Journal.objects.from_phone_number(phone_number)
     if journal is None:
@@ -39,7 +39,7 @@ def create_journal(phone_number, send_response=True):
     if send_response:
         send_sms(to=journal.get_phone(),
                  msg=WELCOME_MSG + u"\n"
-                     + u"Reply to make your first post. How's it going today?"
+                     + u"Reply to make your first post on http://my.emojr.nl/#%s" % journal.hashid
                  )
     return JsonResponse({'journal': journal.hashid})
 
@@ -78,12 +78,13 @@ def sms_post(request):
                     journal.save()
                     send_sms(to=sms_from,
                              msg=WELCOME_MSG + u"\n" +
-                                 u"Welcome to your %(emojrnl)s!" % EMOJI)
+                                 u"Welcome to your %(emojrnl)s!" % EMOJI +
+                                 u"Read it at http://my.emojr.nl/#%s" % journal.hashid)
                     return JsonResponse({'message': 'welcome',
                                         'journal': journal.hashid})
                 else:
                     logger.info("journal not confirmed, user signup")
-                    return user_signup(sms_from)
+                    return user_signup(request, sms_from)
 
         except Journal.DoesNotExist:
             logger.info("could not get journal for " + sms_from)
@@ -91,7 +92,8 @@ def sms_post(request):
             entry = new_entry(journal, sms_body, send_response=False)
             send_sms(to=journal.get_phone(),
                      msg=WELCOME_MSG + u"\n" +
-                         u"Welcome to your %(emojrnl)s!" % EMOJI
+                         u"Welcome to your %(emojrnl)s!" % EMOJI +
+                         u"Read it at http://my.emojr.nl/#%s" % journal.hashid
                      )
             return JsonResponse({'message': 'welcome',
                                  'journal': journal.hashid,

@@ -21,16 +21,13 @@ EMAIL_USE_TLS = True
 EMAIL_HOST_PASSWORD = os.environ['SENDGRID_PASSWORD']
 
 # SSL
-SSLIFY_DISABLE = False
+SSLIFY_DISABLE = True
 SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
-SESSION_COOKIE_SECURE = True
-CSRF_COOKIE_SECURE = True
+SESSION_COOKIE_SECURE = False
+CSRF_COOKIE_SECURE = False
 
 # Allowed host headers
 ALLOWED_HOSTS = ['emojrnl.herokuapp.com', 'my.emojr.nl']
-
-# Twilio
-DJANGO_TWILIO_FORGERY_PROTECTION = False
 
 # Static asset configuration
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))

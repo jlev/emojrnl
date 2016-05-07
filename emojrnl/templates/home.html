@@ -10,6 +10,11 @@
 {%block content%}
   <h2>{{"wave"|emoji}}{{"earth_americas"|emoji}}!</h2>
 
+  <form class="signup hidden">
+    <input type="tel" placeholder="+1 123-555-1212"/>
+    <button type="submit">{{"rocket"|emoji}}</button>
+  </form>
+
   <ul class="journal"></ul>
 {%endblock%}
 
@@ -17,17 +22,40 @@
 <script>
 $(document).ready(function() {
   var hashid = window.location.hash.replace('#','');
-  console.log('loading '+hashid);
-  $.get('/api/journal/'+hashid,function(data){
-    console.log('got', data);
-    $.each(data.entries, function(index, entry) {
-      $('.journal').append('<li class="entry">'+
-        '<span class="date">'+moment(entry.created_at, moment.ISO_8601).startOf('hour').fromNow()+'</span>'+
-        '<span class="text">'+entry.txt+'</span>'+
-        '</li>'
-      );
+  if(!!hashid) {
+    $.get('/api/journal/'+hashid,function(data){
+      console.log('got', data);
+      $.each(data.entries, function(index, entry) {
+        $('.journal').append('<li class="entry">'+
+          '<span class="date">'+moment(entry.created_at, moment.ISO_8601).startOf('hour').fromNow()+'</span>'+
+          '<span class="text">'+entry.txt+'</span>'+
+          '</li>'
+        );
+      });
+      $('form.signup').hide();
     });
-  });
+  } else {
+    $('form.signup').show();
+    $('form.signup').submit(function(event) {
+      event.preventDefault();
+
+      var phone = $('form.signup input[type=tel]').val()
+        .replace('-','').replace('(','').replace(')','');
+      if (phone.substr(0,1) != '+1') {
+        phone = '+1'+phone;
+      }
+      console.log('signup '+phone);
+      $.post('/sms/signup/'+phone+'/',function(response){
+        console.log('response', response);
+        if (response.message === 'confirm') {
+          // TODO, redirect to the screen?
+          alert('success!');
+        } else if (response.message === 'exists') {
+          alert('you\'re already signed up!');
+        }
+      });
+    })
+  }
 });
 </script>
 {%endblock%}
