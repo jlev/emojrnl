@@ -6,9 +6,10 @@ logger = logging.getLogger(__name__)
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 
+from emojrnl.emoji import EMOJI
 from journal.models import Journal, Entry, HASHER
 from sms.client import send_sms, parse_sms
-from sms.messages import EMOJI, WELCOME_MSG, CONFIRM_MSGS
+from sms.messages import WELCOME_MSG, CONFIRM_MSGS
 
 
 def user_signup(phone_number):

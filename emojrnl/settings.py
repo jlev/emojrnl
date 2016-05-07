@@ -56,7 +56,7 @@ ROOT_URLCONF = 'emojrnl.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': ['emojrnl/templates',],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -112,6 +112,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/1.9/howto/static-files/
 
 STATIC_URL = '/static/'
+STATIC_ROOT = 'static'
 
 PLIVO_AUTH_ID = os.environ.get('PLIVO_AUTH_ID')
 PLIVO_AUTH_TOKEN = os.environ.get('PLIVO_AUTH_TOKEN')

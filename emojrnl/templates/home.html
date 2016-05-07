@@ -1,0 +1,33 @@
+{%extends "base.html"%}
+{% load emoji_tags %}
+{% load staticfiles %}
+
+{%block style%}
+<link rel="stylesheet" href="{%static 'css/journal.css'%}">
+{%endblock%}
+
+
+{%block content%}
+  <h2>{{"wave"|emoji}}{{"earth_americas"|emoji}}!</h2>
+
+  <ul class="journal"></ul>
+{%endblock%}
+
+{%block script%}
+<script>
+$(document).ready(function() {
+  var hashid = window.location.hash.replace('#','');
+  console.log('loading '+hashid);
+  $.get('/api/journal/'+hashid,function(data){
+    console.log('got', data);
+    $.each(data.entries, function(index, entry) {
+      $('.journal').append('<li class="entry">'+
+        '<span class="date">'+moment(entry.created_at, moment.ISO_8601).startOf('hour').fromNow()+'</span>'+
+        '<span class="text">'+entry.txt+'</span>'+
+        '</li>'
+      );
+    });
+  });
+});
+</script>
+{%endblock%}
