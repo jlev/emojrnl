@@ -112,7 +112,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/1.9/howto/static-files/
 
 STATIC_URL = '/static/'
-STATIC_ROOT = 'static'
+STATIC_ROOT = 'staticfiles'
 
 PLIVO_AUTH_ID = os.environ.get('PLIVO_AUTH_ID')
 PLIVO_AUTH_TOKEN = os.environ.get('PLIVO_AUTH_TOKEN')
