@@ -1,0 +1,26 @@
+{% capture body_class %}{{ page.body_class}}{% endcapture %}
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <meta property="og:image" content="http://emojr.nl/images/share.png" />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="http://emojr.nl" />
+    <meta property="og:title" content="emojr.nl - your daily emoji journal" />
+    <link href="/icons/emojrnl.png" rel="shortcut icon" type="image/x-icon" />
+    <link rel="stylesheet" href="/styles/main.css?v={{site.time | date: '%s'}}" />
+
+    <title>emojr.nl - your daily emoji journal</title>
+    {% if page.top_script%}{{page.top_script}}{%endif%}
+  </head>
+
+  <body class="{{body_class}}">
+    {{ content }}
+  </body>
+
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+  <script src='/scripts/main.js'></script>
+  {% if page.end_script %}{{page.end_script}}{% endif %}
+  {% include analytics.html %}
+</html>

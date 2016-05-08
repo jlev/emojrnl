@@ -1,0 +1,47 @@
+// Utilities
+//––––––––––––––––––––––––––––––––––––––––––––––––––
+
+.u-full-width {
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.u-max-full-width {
+  max-width: 100%;
+  box-sizing: border-box;
+}
+
+.u-pull-right {
+  float: right !important;
+}
+
+.u-pull-left {
+  float: left !important;
+}
+
+.u-center {
+  margin: 0 auto;
+}
+
+.u-text-center {
+  text-align: center;
+}
+
+.u-push-down-40 {
+  margin-bottom: 4rem;
+}
+
+.u-flex-center {
+    @media (#{$bp-larger-than-phablet}) {
+        display: -ms-flexbox;
+        display: -webkit-flex;
+        display: flex;
+
+        -ms-flex-align: center;
+        -webkit-align-items: center;
+        -webkit-box-align: center;
+
+        align-items: center;
+    }
+
+}
