@@ -1,2 +1,3 @@
-# emojrnl
-emojr.nl
+# emojr.nl
+
+my emoji journal
