@@ -67,9 +67,26 @@ section {
 
 .index #logo {
     padding-top: 20%;
-    h1 { margin-bottom: 0rem;}
-    h2 { margin-left: 0.4rem; }
-    img { width: 50%; }
+    h1 {
+        text-align: center;
+        @media (#{$bp-larger-than-phablet}) { text-align: left; }
+        margin-bottom: 0rem;
+    }
+    h2 {
+        font-size: 2rem;
+        text-align: center;
+        margin: 0 auto;
+        @media (#{$bp-larger-than-phablet}) {
+            font-size: 3rem;
+            text-align: left;
+            margin-left: 0.4rem; // fix overhanging y on left rail
+        }
+    }
+    img {
+        width: 50%;
+        margin: 0 25%;
+        @media (#{$bp-larger-than-phablet}) { margin: 0; }
+    }
 }
 
 .index #examples {
@@ -88,9 +105,21 @@ section {
             text-transform: uppercase;
             font-weight: 200;
             font-size: 1.8rem;
-            vertical-align: top;
-
             margin-right: 10px;
+            vertical-align: top;
+            display: inline-block;
+            min-width: 125px;
+            text-align: right;
+
+            @media (#{$bp-larger-than-phablet}) { 
+                display: block;
+                text-align: left;
+            }
+            @media (#{$bp-larger-than-desktop}) { 
+                display: inline-block;
+                text-align: right;
+            }
+
             &:after {
                 content: ":";
                 vertical-align: top;
@@ -187,5 +216,7 @@ section {
         border-width: 2px;
         border-radius: 5px;
         letter-spacing: 0;
+
+        &:hover { border-color: $link-active; }
     }
 }
