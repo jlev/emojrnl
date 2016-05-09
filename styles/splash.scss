@@ -1,6 +1,8 @@
 header {
     position: relative;
-    margin-top: -8rem;
+    top: -2em;
+    @media (#{$bp-larger-than-tablet}) { top: -6rem; }
+    @media (#{$bp-larger-than-desktop}) { top: -8rem; }
     padding-left: 2rem;
     font-size: 1.4rem;
     a { color: $white; }
@@ -9,7 +11,9 @@ header {
 section {
     width: 100%;
     min-height: calc(90% - 20rem);
-    padding: 10rem 0;
+    padding: 4rem 0;
+    @media (#{$bp-larger-than-tablet}) { padding: 8rem 0; }
+    @media (#{$bp-larger-than-desktop}) { padding: 10rem 0; }
 
     header, h1, h3 {
         text-transform: uppercase;
@@ -46,7 +50,8 @@ section {
         background: $gray-dark;
         background-image: url('/images/stars.svg');
         background-size: 100% 80%;
-        background-position: center;
+        background-position: center bottom;
+        @media (#{$bp-larger-than-tablet}) { background-position: center center; }
         background-repeat: no-repeat;
         color: $white;
     }
@@ -55,7 +60,7 @@ section {
         margin-bottom: 4rem;
         position: relative;
         .center-vertical {
-            line-height: 10rem;
+            @media (#{$bp-larger-than-desktop}) { line-height: 10rem; }
         }
     }
 }
@@ -71,7 +76,7 @@ section {
     height: 100%;
     padding-top: 20%;
     li {
-        margin-bottom: 30%;
+        @media (#{$bp-larger-than-phablet}) { margin-bottom: 30%; }
         line-height: 4rem;
 
         p.emoji {
@@ -154,7 +159,9 @@ section {
 }
 
 #getstarted {
-    margin-top: 25%;
+    @media (#{$bp-larger-than-tablet}) { margin-top: 15%; }
+    @media (#{$bp-larger-than-desktop}) { margin-top: 25%; }
+    
 
     h3 {
         font-size: 2rem;
@@ -175,6 +182,7 @@ section {
         height: 10rem;
         width: 10rem;
         padding: 0;
+        background-color: $gray-dark;
 
         border-width: 2px;
         border-radius: 5px;
