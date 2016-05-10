@@ -1,0 +1,96 @@
+.journal {
+    background-color: $blue;
+    color: $white;
+    text-transform: uppercase;
+
+    section {
+        padding: 0;
+    }
+
+    #stats {
+        h1 {
+            font-size: 2.4rem;
+            font-weight: bold;
+            float: left;
+            width: 40%;
+        }
+        h2 {
+            font-size: 1.6rem;
+            font-weight: 100;
+            margin-bottom: 0;
+        }
+        padding: 2rem;
+
+        .chart {
+            height: 250px;
+            width: auto;
+            float: right;
+        }
+    }
+
+    #badges {
+        li {
+            display: block;
+            width: 100%;
+            min-height: 5rem;
+            margin-bottom: 0;
+
+            &:nth-child(even) {
+                background-color: $blue-dark;
+            } 
+
+            div {
+                margin: 0 0 0 8rem;
+            }
+
+            line-height: 4rem;
+            span {
+                display: inline-block;
+                width: 10rem;
+                &.emoji {
+                    margin: 2rem 0;
+                    font-size: 4rem;
+                    text-align: center;
+                }
+            }
+        }
+    }
+
+    #today {
+        background: $blue-dark;
+        height: 100%;
+
+        .entry {
+            margin: 4rem 0 2rem 0;
+            width: 100%;
+            text-align: center;
+            font-weight: 100;
+
+            .time, .day { font-size: 1.6rem; }
+            .date { font-size: 7rem; font-weight: 300; }
+            .txt { font-size: 8rem; }
+        }
+    }
+
+    #calendar {
+        ul#journal {
+            padding: 2rem 0;
+            li {
+                display: inline-block;
+                width: 20%;
+                .date {
+                    display: block;
+                    width: 100%;
+                    font-weight: 100;
+                    text-align: center;
+                }
+                .text {
+                    display: block; 
+                    width: 100%;
+                    font-size: 4rem;
+                    text-align: center;
+                }
+            }
+        }
+    }
+}
