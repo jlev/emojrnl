@@ -5,7 +5,7 @@ $(document).ready(function() {
         event.preventDefault();
 
         var phone = $('input[type=tel]').val()
-            .replace(/[\(\)\-\+]/,'');
+            .replace(/[\(\)\-\+]/g,'');
         console.log('phone', phone);
         // TODO really validate e164
 
