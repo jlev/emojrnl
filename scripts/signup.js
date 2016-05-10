@@ -1,6 +1,5 @@
 $(document).ready(function() {
     EMOJRNL_URL = 'http://my.emojr.nl/';
-    EMOJRNL_URL = 'http://localhost:8000/'
 
     $('form#getstarted').submit(function(event) {
         event.preventDefault();
