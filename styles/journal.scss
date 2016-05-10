@@ -25,6 +25,9 @@
             height: 250px;
             width: auto;
             float: right;
+
+            .bar { fill: $blue-dark; }
+            path, text { fill: $blue-dark; }
         }
     }
 
