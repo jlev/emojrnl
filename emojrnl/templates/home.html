@@ -1,60 +1,87 @@
 {%extends "base.html"%}
-{% load emoji_tags %}
-{% load staticfiles %}
+{%load emoji_tags%}
+{%load staticfiles%}
 
-{%block style%}
-<link rel="stylesheet" href="{%static 'css/journal.css'%}">
-{%endblock%}
-
+{%block body_class%}journal{%endblock%}
 
 {%block content%}
-  <h2>{{"wave"|emoji}}{{"earth_americas"|emoji}}!</h2>
+<div class="row">
+  <section id="stats" class="six columns">
+    <h1>my emojrnl</h1>
+    <h2>phone: <span id="phone"></span></h2>
+    <h2>member since: <span id="member_since"></span></h2>
 
-  <form class="signup hidden">
-    <input type="tel" placeholder="+1 123-555-1212"/>
-    <button type="submit">{{"rocket"|emoji}}</button>
-  </form>
+    <img class="chart" src="http://www.emojr.nl/images/chart-example.png"/>
+  </section>
 
-  <ul class="journal"></ul>
+  <section id="badges" class="six columns">
+    <ul>
+      <li><div><span class="emoji">😅</span>total emoji:    <span id="total_emoji">0</span></div></li>
+      <li><div><span class="emoji">📓</span>total updates:  <span id="total_entries">0</span></div></li>
+      <li><div><span class="emoji">🏅</span>longest streak: <span id="longest_streak">0</span></div></li>
+      <li><div><span class="emoji">⏱</span>current streak: <span id="current_streak">0</span></div></li>
+    </ul>
+  </section>
+</div>
+
+<div class="row">
+  <section id="today" class="four columns">
+    &nbsp;
+    <div class="entry">
+      <div class="time"></div>
+      <div class="day"></div>
+      <div class="date"></div>
+      <div class="txt"></div>
+    </div>
+  </section>
+
+  <section id="calendar" class="eight columns">
+    <ul id="journal"></ul>
+  </section>
+</div>
+  
 {%endblock%}
 
 {%block script%}
 <script>
 $(document).ready(function() {
   var hashid = window.location.hash.replace('#','');
+  // TODO, check cookie for login hash
+
   if(!!hashid) {
-    $.get('/api/journal/'+hashid,function(data){
-      console.log('got', data);
-      $.each(data.entries, function(index, entry) {
-        $('.journal').append('<li class="entry">'+
-          '<span class="date">'+moment(entry.created_at, moment.ISO_8601).startOf('hour').fromNow()+'</span>'+
+    console.log('load '+hashid);
+    $.get('/api/journal/'+hashid).done(function(data) {
+      console.log(data);
+
+      // load data
+      $('#phone').html(data.phone.replace(/(\d{1})(\d{3})(\d{3})(\d{4})/, '$2-$3-$4')); // TODO, parse e164
+      $('#member_since').html(moment(data.created_at, moment.ISO_8601).format('LL'));
+      $('#total_emoji').html(_.reduce(data.entries, function(sum, e){ return (sum + e.txt.length); }, 0));
+      $('#total_entries').html(data.entries.length);
+
+      var latest_entry = data.entries[0];
+      var latest_moment = moment(latest_entry.created_at, moment.ISO_8601)
+      $('#today .entry .time').html(latest_moment.format('LT'));
+      $('#today .entry .day').html(latest_moment.format('dddd'));
+      $('#today .entry .date').html(latest_moment.format('MMMM Do'));
+      $('#today .entry .txt').html(latest_entry.txt);
+
+      _.each(data.entries, function(entry) {
+        $('ul#journal').append('<li class="entry">'+
+          '<span class="date">'+moment(entry.created_at, moment.ISO_8601).format('dd LT')+'</span>'+
           '<span class="text">'+entry.txt+'</span>'+
           '</li>'
         );
       });
-      $('form.signup').hide();
+    })
+    .fail(function(e) {
+      // redirect to splash login
+      // window.location.replace('http://www.emojr.nl/#login');
+      console.error('fail',e);
     });
   } else {
-    $('form.signup').show();
-    $('form.signup').submit(function(event) {
-      event.preventDefault();
-
-      var phone = $('form.signup input[type=tel]').val()
-        .replace('-','').replace('(','').replace(')','');
-      if (phone.substr(0,1) != '+1') {
-        phone = '+1'+phone;
-      }
-      console.log('signup '+phone);
-      $.post('/sms/signup/'+phone+'/',function(response){
-        console.log('response', response);
-        if (response.message === 'confirm') {
-          // TODO, redirect to the screen?
-          alert('success!');
-        } else if (response.message === 'exists') {
-          alert('you\'re already signed up!');
-        }
-      });
-    })
+    // redirect to splash signup
+    window.location.replace('http://www.emojr.nl/#getstarted');
   }
 });
 </script>

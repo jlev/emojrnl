@@ -49,3 +49,10 @@ class Entry(models.Model):
 
     class Meta:
         verbose_name_plural = "entries"
+        ordering = ['-created_at']
+
+
+class Streak(models.Model):
+    journal = models.ForeignKey(Journal)
+    date_start = models.DateField()
+    date_end = models.DateField()

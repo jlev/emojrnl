@@ -9,5 +9,3 @@ from emojrnl.emoji import EMOJI
 @stringfilter
 def emoji(alias):
     return EMOJI.get(alias, '')
-
-print "loaded emoji_tags"
