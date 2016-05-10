@@ -12,6 +12,7 @@ from sms.client import send_sms, parse_sms
 from sms.messages import WELCOME_MSG, CONFIRM_MSGS
 
 
+@csrf_exempt
 def user_signup(request, phone_number):
     logger.info("user_signup: " + phone_number)
     journal = Journal.objects.from_phone_number(phone_number)
@@ -29,7 +30,7 @@ def user_signup(request, phone_number):
                  )
         return JsonResponse({'message': 'confirm'})
     else:
-        return JsonResponse({'message': 'exists'})
+        return JsonResponse({'message': 'exists', 'hashid': journal.hashid})
 
 
 def create_journal(phone_number, send_response=True):

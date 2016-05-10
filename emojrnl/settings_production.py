@@ -28,6 +28,11 @@ CSRF_COOKIE_SECURE = False
 
 # Allowed host headers
 ALLOWED_HOSTS = ['emojrnl.herokuapp.com', 'my.emojr.nl']
+CORS_ORIGIN_WHITELIST = (
+    'emojr.nl',
+    'www.emojr.nl'
+)
+CORS_URLS_REGEX = r'^/api/.*$'
 
 # Static asset configuration
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
