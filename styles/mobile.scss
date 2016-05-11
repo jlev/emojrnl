@@ -1,0 +1,65 @@
+// mobile style tweaks
+// @media queries should be near where the main style is defined
+
+// but global stuff is here
+// ios won't scale emoji using font-size
+// workaround with -webkit-transform
+
+.ios {
+  .emoji {
+    -webkit-transform: scale(2);
+    -webkit-transform-origin-x: 0%;
+    -webkit-transform-origin-y: 25%;
+    position: absolute;
+  }
+
+  // adjust offset for different layouts 
+  .index {
+    .splash #examples .emoji {
+      -webkit-transform-origin-y: 75%;
+    }
+
+    #getstarted button .emoji {
+      -webkit-transform-origin-x: 100%;
+      -webkit-transform-origin-y: 175%;
+    }
+  }
+
+  .journal {
+    #stats .chart {
+      .x.axis text {
+        font-size: 1rem;
+      }
+    }
+
+    #badges {
+      li { padding-bottom: 0; }
+      .emoji {
+        -webkit-transform-origin-x: 120%;
+        -webkit-transform-origin-y: 100%
+      }
+    }
+
+    #today { 
+      position: relative;
+      .entry { padding-bottom: 12rem; }
+      .emoji {
+        -webkit-transform: scale(4);
+        -webkit-transform-origin-x: 0;
+        -webkit-transform-origin-y: 75%;
+        left: calc(50% - 4rem);
+      }
+    }
+
+    #calendar {
+      li { position: relative; }
+      .emoji {
+        display: inline-block; 
+        -webkit-transform-origin-x: -1.5rem;
+        -webkit-transform-origin-y: 75%;
+        position: relative;
+        width: auto;
+      }
+    }
+  }
+}

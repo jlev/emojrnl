@@ -26,35 +26,47 @@
             width: auto;
             float: right;
 
-            .bar { fill: $blue-dark; }
-            path, text { fill: $blue-dark; }
+            
+            .axis {
+                path { 
+                    fill: none;
+                    stroke: $blue-dark;
+                    stroke-width: 2px;
+                }
+                text { font-size: 2.5rem; }
+            }
+            .bar {
+                fill: $blue-dark;
+                text {
+                    stroke: $white;
+                    font-weight: 100;
+                    font-size: 1rem;
+                }
+            }
         }
     }
 
     #badges {
         li {
             display: block;
-            width: 100%;
             min-height: 5rem;
+            padding: 2rem 0 2rem 8rem;
             margin-bottom: 0;
 
-            &:nth-child(even) {
+            &:nth-child(odd) {
                 background-color: $blue-dark;
             } 
 
-            div {
-                margin: 0 0 0 8rem;
-            }
-
             line-height: 4rem;
-            span {
+
+            span.emoji {                   
+                font-size: 4rem;
+            }
+            div.num {
                 display: inline-block;
-                width: 10rem;
-                &.emoji {
-                    margin: 2rem 0;
-                    font-size: 4rem;
-                    text-align: center;
-                }
+                position: relative;
+                bottom: 1rem;
+                left: 5rem;
             }
         }
     }
@@ -76,7 +88,7 @@
     }
 
     #calendar {
-        ul#journal {
+        ul {
             padding: 2rem 0;
             li {
                 display: inline-block;
@@ -87,7 +99,7 @@
                     font-weight: 100;
                     text-align: center;
                 }
-                .text {
+                .txt {
                     display: block; 
                     width: 100%;
                     font-size: 4rem;
