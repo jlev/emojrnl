@@ -14,23 +14,25 @@ var Emojrnl = (function () {
     var txt_merge = _.pluck(entry_list, 'txt').join('');
     // count histogram of each symbol
     var hist = _(Array.from(txt_merge)).countBy(function(char) { return char });
-    var data = d3.entries(hist)
-    console.log(data);
-  
+    var data = d3.entries(hist).sort(function(a,b) {return d3.descending(a.value, b.value)});
+    // TODO, limit to ten entries
+
     var x = d3.scale.ordinal()
-        .rangeRoundBands([0, width], .1);
-    var y = d3.scale.linear()
-        .range([height, 0]);
+      .rangeRoundBands([0, width], .5);
+    var y = d3.scale.ordinal()
+       .rangeRoundPoints([height, 0], 1);
     x.domain(data.map(function(d) { return d.key; }));
-    y.domain([0, d3.max(data, function(d) { return d.value; })]);
+    y.domain([1, d3.max(data, function(d) { return d.value; })]);
 
     var xAxis = d3.svg.axis()
         .scale(x)
-        .orient("bottom");
+        .orient("bottom")
+        .outerTickSize([0]); // don't show end ticks
     var yAxis = d3.svg.axis()
         .scale(y)
         .orient("left")
-        .ticks(10, "%");
+        .outerTickSize([0])
+        .tickFormat(['']); // hide tick values
 
     var svg = d3.select(".chart").append("svg")
         .attr("width", width + margin.left + margin.right)
@@ -45,22 +47,25 @@ var Emojrnl = (function () {
 
     svg.append("g")
         .attr("class", "y axis")
-        .call(yAxis)
-      .append("text")
-        .attr("transform", "rotate(-90)")
-        .attr("y", 6)
-        .attr("dy", ".71em")
-        .style("text-anchor", "end")
-        .text("Popularity");
+        .call(yAxis);
 
-    svg.selectAll(".bar")
+    var bar = svg.selectAll(".chart > g")
         .data(data)
-      .enter().append("rect")
+      .enter().append("g")
         .attr("class", "bar")
-        .attr("x", function(d) { return x(d.key); })
+        .attr("transform", function(d, i) { return "translate(" + x(d.key) + ", 0)"; });
+
+    bar.append("rect")
         .attr("width", x.rangeBand())
         .attr("y", function(d) { return y(d.value); })
         .attr("height", function(d) { return height - y(d.value); });
+
+    bar.append("text")
+      .attr("y", function(d) { return y(d.value); })
+      .attr("dy", "1.5em")
+      .attr("dx", x.rangeBand()/2)
+      .attr("text-anchor", "middle")
+      .text(function(d) { return d.value; });
   }
 
   emojrnl.render = function(data) {
