@@ -6,7 +6,7 @@ from settings import *
 
 # No debug
 DEBUG = False
-TEMPLATE_DEBUG = False
+TEMPLATES[0]['OPTIONS']['debug'] = False
 SECRET_KEY = os.environ.get('SECRET_KEY')
 
 # Heroku hosted database & cache
