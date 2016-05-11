@@ -45,6 +45,13 @@ var Emojrnl = (function () {
       .attr("transform", "translate(0," + height + ")")
       .call(xAxis);
 
+    if ($('html').hasClass('ios')) {
+      d3.selectAll(".x.axis .tick text")
+        .attr('class', 'emoji')
+        .attr('y', function(d) { return 0; })
+        .attr("transform", "scale(2)");
+    }
+
     svg.append("g")
         .attr("class", "y axis")
         .call(yAxis);
@@ -94,7 +101,7 @@ var Emojrnl = (function () {
     _.each(data.entries, function(entry) {
       $('ul#journal').append('<li class="entry">'+
         '<span class="date">'+moment(entry.created_at, moment.ISO_8601).format('dd LT')+'</span>'+
-        '<span class="text">'+entry.txt+'</span>'+
+        '<span class="txt emoji">'+entry.txt+'</span>'+
         '</li>'
       );
     });
