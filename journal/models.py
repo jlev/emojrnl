@@ -23,7 +23,7 @@ class Journal(models.Model):
     confirmed = models.BooleanField(default=False)
     created_at = models.DateTimeField(auto_now_add=True)
     last_updated = models.DateTimeField()
-    view_password = models.CharField(max_length=5)
+    view_password = models.CharField(max_length=5, null=True)
     objects = HashedPhoneManager()
 
     def __unicode__(self):
