@@ -33,6 +33,14 @@ class Journal(models.Model):
     def num_entries(self):
         return self.entry_set.count()
 
+    def longest_streak(self):
+        #  do filtering in memory
+        #  TODO, use F() query
+        if self.streak_set.count():
+            return sorted(list(self.streak_set.all()), key=lambda x: x.length, reverse=True)[0]
+        else:
+            return None
+
     def get_phone(self):
         return str(HASHER.decode(self.hashid)[0])
 
@@ -44,6 +52,9 @@ class Entry(models.Model):
     journal = models.ForeignKey(Journal)
     created_at = models.DateTimeField(auto_now_add=True)
     txt = models.CharField(max_length=3)
+
+    def __unicode__(self):
+        return "%s - %s" % (self.created_at, self.txt)
 
     @property
     def hashid(self):
@@ -58,3 +69,10 @@ class Streak(models.Model):
     journal = models.ForeignKey(Journal)
     date_start = models.DateField()
     date_end = models.DateField()
+
+    def __unicode__(self):
+        return "%s - %s" % (self.date_start, self.date_end)
+
+    @property
+    def length(self):
+        return (self.date_end - self.date_start).days

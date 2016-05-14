@@ -76,6 +76,7 @@ var Emojrnl = (function () {
   }
 
   emojrnl.render = function(data) {
+    console.log(data);
     // render #stats
     $('#phone').html(data.phone.replace(/(\d{1})(\d{3})(\d{3})(\d{4})/, '$2-$3-$4')); // TODO, parse e164
     $('#member_since').html(moment(data.created_at, moment.ISO_8601).format('LL'));
@@ -88,6 +89,7 @@ var Emojrnl = (function () {
       return (sum + Array.from(e.txt).length); // need to convert string to array to count unicode char correctly
     }, 0));
     $('#total_entries').html(data.entries.length);
+    $('#longest_streak').html(data.longest_streak.length)
 
     // render #today
     var latest_entry = data.entries[0];

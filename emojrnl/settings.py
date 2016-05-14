@@ -38,7 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'corsheaders',
     'rest_framework',
-    'journal'
+    'journal.apps.JournalConfig'
 ]
 
 MIDDLEWARE_CLASSES = [
