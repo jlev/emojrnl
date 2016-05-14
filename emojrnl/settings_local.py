@@ -1,6 +1,6 @@
 from settings import *
 
-PLIVO_NUMBER = '+16572564969'
+PLIVO_NUMBER = os.environ.get('PLIVO_NUMBER', '+16572564969')
 
 import os
 
