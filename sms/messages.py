@@ -1,6 +1,6 @@
 from emojrnl.emoji import EMOJI
 
-WELCOME_MSG = "%(fireworks)s%(champagne)s%(party_popper)s" % EMOJI
+WELCOME_MSG = u"%(fireworks)s%(champagne)s%(party_popper)s" % EMOJI
 CONFIRM_MSGS = [EMOJI[m] for m in [
     'thumbs_up',
     'ok_hand',

@@ -5,7 +5,9 @@ from django.conf import settings
 from django.core.urlresolvers import reverse
 
 from hashids import Hashids
-HASHER = Hashids(min_length=12, salt=settings.SECRET_KEY)
+HASHER = Hashids(min_length=12,
+                 alphabet='abcdefghijklmnopqrstuvwxyz',
+                 salt=settings.SECRET_KEY)
 
 
 class HashedPhoneQuerySet(models.QuerySet):
