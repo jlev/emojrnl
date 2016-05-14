@@ -89,8 +89,8 @@ var Emojrnl = (function () {
       return (sum + Array.from(e.txt).length); // need to convert string to array to count unicode char correctly
     }, 0));
     $('#total_entries').html(data.entries.length);
-    $('#longest_streak').html(data.longest_streak.length || 0);
-    $('#current_streak').html(data.current_streak.length || 0);
+    $('#longest_streak').html((data.longest_streak && data.longest_streak.length) || 0);
+    $('#current_streak').html((data.current_streak && data.current_streak.length) || 0);
 
     // render #today
     var latest_entry = data.entries[0];
