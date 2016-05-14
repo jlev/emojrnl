@@ -1,5 +1,5 @@
 from __future__ import unicode_literals
-
+from datetime import datetime
 from django.db import models
 from django.conf import settings
 from django.core.urlresolvers import reverse
@@ -38,8 +38,10 @@ class Journal(models.Model):
         #  TODO, use F() query
         if self.streak_set.count():
             return sorted(list(self.streak_set.all()), key=lambda x: x.length, reverse=True)[0]
-        else:
-            return None
+
+    def current_streak(self):
+        if self.streak_set.count():
+            return self.streak_set.filter(date_end=datetime.now().date()).first()
 
     def get_phone(self):
         return str(HASHER.decode(self.hashid)[0])
@@ -75,4 +77,4 @@ class Streak(models.Model):
 
     @property
     def length(self):
-        return (self.date_end - self.date_start).days
+        return (self.date_end - self.date_start).days + 1

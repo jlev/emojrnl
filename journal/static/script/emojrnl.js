@@ -15,14 +15,14 @@ var Emojrnl = (function () {
     // count histogram of each symbol
     var hist = _(Array.from(txt_merge)).countBy(function(char) { return char });
     var data = d3.entries(hist).sort(function(a,b) {return d3.descending(a.value, b.value)});
-    // TODO, limit to ten entries
+    data = data.slice(0,10); // top ten emoji by frequency
 
     var x = d3.scale.ordinal()
       .rangeRoundBands([0, width], .5);
-    var y = d3.scale.ordinal()
-       .rangeRoundPoints([height, 0], 1);
+    var y = d3.scale.linear()
+      .range([height, 0]);
     x.domain(data.map(function(d) { return d.key; }));
-    y.domain([1, d3.max(data, function(d) { return d.value; })]);
+    y.domain([0, d3.max(data, function(d) { return d.value; })]);
 
     var xAxis = d3.svg.axis()
         .scale(x)
@@ -89,7 +89,8 @@ var Emojrnl = (function () {
       return (sum + Array.from(e.txt).length); // need to convert string to array to count unicode char correctly
     }, 0));
     $('#total_entries').html(data.entries.length);
-    $('#longest_streak').html(data.longest_streak.length)
+    $('#longest_streak').html(data.longest_streak.length || 0);
+    $('#current_streak').html(data.current_streak.length || 0);
 
     // render #today
     var latest_entry = data.entries[0];

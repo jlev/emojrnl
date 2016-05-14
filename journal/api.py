@@ -17,13 +17,13 @@ class StreakSerializer(serializers.ModelSerializer):
 
 class JournalSerializer(serializers.HyperlinkedModelSerializer):
     entries = EntrySerializer(many=True, read_only=True, source='entry_set')
-    #current_streak = StreakSerializer(read_only=True)
+    current_streak = StreakSerializer(read_only=True)
     longest_streak = StreakSerializer(read_only=True)
     phone = serializers.CharField(source='get_phone')
 
     class Meta:
         model = Journal
-        fields = ('hashid', 'phone', 'created_at', 'last_updated', 'entries', 'longest_streak')  #'current_streak')
+        fields = ('hashid', 'phone', 'created_at', 'last_updated', 'entries', 'longest_streak', 'current_streak')
 
 
 class JournalViewSet(generics.RetrieveAPIView):
