@@ -26,9 +26,9 @@ def parse_sms(request):
 
     params = ()
     if request.method == "POST":
-        params = (request.POST.get('From'), request.POST.get('Text'))
+        params = (request.POST.get('From'), request.POST.get('Text').strip())
     elif request.method == "GET":
-        params = (request.GET.get('From'), request.GET.get('Text'))
+        params = (request.GET.get('From'), request.GET.get('Text').strip())
 
     logger.info('parse_sms: %s' % (params,))
     return params

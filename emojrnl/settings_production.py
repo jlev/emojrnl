@@ -1,6 +1,6 @@
 import os
 import dj_database_url
-from memcacheify import memcacheify
+import urlparse
 
 from settings import *
 
@@ -9,9 +9,28 @@ DEBUG = False
 TEMPLATES[0]['OPTIONS']['debug'] = False
 SECRET_KEY = os.environ.get('SECRET_KEY')
 
-# Heroku hosted database & cache
+# Heroku hosted database
 DATABASES['default'] = dj_database_url.config()
-CACHES = memcacheify(timeout=60 * 60)  # max one hour
+
+# Redis cache and queue broker
+redis_url = urlparse.urlparse(os.environ.get('REDIS_URL'))
+CACHES = {
+    "default": {
+        "BACKEND": "django_redis.cache.RedisCache",
+        "LOCATION": "{0}:{1}".format(redis_url.hostname, redis_url.port),
+        "OPTIONS": {
+            "PASSWORD": redis_url.password,
+            "DB": 0,
+        }
+    }
+}
+Q_CLUSTER = {
+    'name': 'DjangoQ-Redis',
+    'workers': 4,
+    'timeout': 90,
+    'django_redis': 'default',
+    'catch_up': False  # do not replay missed schedules past
+}
 
 # Sendgrid email
 EMAIL_HOST_USER = os.environ['SENDGRID_USERNAME']
