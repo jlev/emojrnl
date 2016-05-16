@@ -13,13 +13,12 @@ SECRET_KEY = os.environ.get('SECRET_KEY')
 DATABASES['default'] = dj_database_url.config()
 
 # Redis cache and queue broker
-redis_url = urlparse.urlparse(os.environ.get('REDIS_URL'))
 CACHES = {
     "default": {
         "BACKEND": "django_redis.cache.RedisCache",
-        "LOCATION": "{0}:{1}".format(redis_url.hostname, redis_url.port),
+        "LOCATION": os.environ.get('REDIS_URL'),
         "OPTIONS": {
-            "PASSWORD": redis_url.password,
+            "CLIENT_CLASS": "django_redis.client.DefaultClient",
             "DB": 0,
         }
     }
