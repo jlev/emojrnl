@@ -53,7 +53,7 @@ class Journal(models.Model):
 class Entry(models.Model):
     journal = models.ForeignKey(Journal)
     created_at = models.DateTimeField(auto_now_add=True)
-    txt = models.CharField(max_length=3)
+    txt = models.CharField(max_length=5)
 
     def __unicode__(self):
         return "%s - %s" % (self.created_at, self.txt)

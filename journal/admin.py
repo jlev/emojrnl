@@ -12,7 +12,7 @@ class JournalAdmin(admin.ModelAdmin):
 class EntryAdmin(admin.ModelAdmin):
     date_hierarchy = 'created_at'
     list_display = ('hashid', 'txt', 'created_at')
-    readonly_fields = ('txt', 'created_at')
+    #readonly_fields = ('txt', 'created_at')
 
 
 admin.site.register(Journal, JournalAdmin)
