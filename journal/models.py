@@ -77,4 +77,4 @@ class Streak(models.Model):
 
     @property
     def length(self):
-        return (self.date_end - self.date_start).days + 1
+        return (self.date_end - self.date_start).days
