@@ -1,5 +1,5 @@
 $(document).ready(function() {
-    EMOJRNL_URL = 'http://my.emojr.nl/';
+    EMOJRNL_URL = 'https://my.emojr.nl/';
 
     $('form#getstarted').submit(function(event) {
         event.preventDefault();
